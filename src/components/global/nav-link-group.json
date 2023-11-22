@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_global_nav_link_groups",
+  "info": {
+    "displayName": "NavLinkGroup",
+    "icon": "code"
+  },
+  "options": {},
+  "attributes": {
+    "NavLink": {
+      "type": "component",
+      "repeatable": true,
+      "component": "global.nav-link"
+    }
+  }
+}

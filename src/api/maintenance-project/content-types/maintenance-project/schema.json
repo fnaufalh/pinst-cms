@@ -1,0 +1,29 @@
+{
+  "kind": "collectionType",
+  "collectionName": "maintenance_projects",
+  "info": {
+    "singularName": "maintenance-project",
+    "pluralName": "maintenance-projects",
+    "displayName": "maintenance project",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "start_date": {
+      "type": "string",
+      "required": true
+    },
+    "content": {
+      "type": "text",
+      "required": true
+    },
+    "finish_date": {
+      "type": "string",
+      "required": true,
+      "default": "now"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_global_nav_links",
+  "info": {
+    "displayName": "NavLink",
+    "icon": "code",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "slug": {
+      "type": "string",
+      "required": true,
+      "default": "home",
+      "unique": true
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "other_products",
+  "info": {
+    "singularName": "other-product",
+    "pluralName": "other-products",
+    "displayName": "other product",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_global_navbars",
+  "info": {
+    "displayName": "Navbar",
+    "icon": "code"
+  },
+  "options": {},
+  "attributes": {
+    "NavLink": {
+      "type": "component",
+      "repeatable": true,
+      "component": "global.nav-link"
+    }
+  }
+}
