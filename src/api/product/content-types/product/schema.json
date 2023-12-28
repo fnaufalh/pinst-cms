@@ -25,12 +25,35 @@
         "images"
       ]
     },
-    "description": {
-      "type": "blocks",
-      "required": true
-    },
     "source_link": {
       "type": "string"
+    },
+    "category_product": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::category-product.category-product",
+      "inversedBy": "products"
+    },
+    "brand": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::brand.brand",
+      "inversedBy": "products"
+    },
+    "catalogue": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::catalogue.catalogue",
+      "inversedBy": "products"
+    },
+    "solution": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::solution.solution",
+      "inversedBy": "products"
+    },
+    "description": {
+      "type": "richtext"
     }
   }
 }

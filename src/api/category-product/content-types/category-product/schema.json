@@ -18,6 +18,18 @@
     },
     "description": {
       "type": "text"
+    },
+    "solution": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::solution.solution",
+      "inversedBy": "category_products"
+    },
+    "products": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::product.product",
+      "mappedBy": "category_product"
     }
   }
 }

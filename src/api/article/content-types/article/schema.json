@@ -27,6 +27,13 @@
       "allowedTypes": [
         "images"
       ]
+    },
+    "summary": {
+      "type": "text"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title"
     }
   }
 }

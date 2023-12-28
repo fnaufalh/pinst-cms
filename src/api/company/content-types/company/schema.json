@@ -4,7 +4,8 @@
   "info": {
     "singularName": "company",
     "pluralName": "companies",
-    "displayName": "company"
+    "displayName": "company",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -15,15 +16,15 @@
       "type": "string"
     },
     "image": {
-      "allowedTypes": [
-        "images"
-      ],
       "type": "media",
       "multiple": false,
-      "required": true
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
     },
     "content": {
-      "type": "blocks",
+      "type": "richtext",
       "required": true
     }
   }

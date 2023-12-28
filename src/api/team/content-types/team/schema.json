@@ -16,19 +16,22 @@
       "type": "string",
       "required": true
     },
-    "other_team": {
-      "type": "enumeration",
-      "enum": [
-        "false",
-        "true"
-      ],
-      "default": "false",
-      "required": true
-    },
-    "employee_team": {
+    "leader": {
       "type": "relation",
       "relation": "oneToOne",
-      "target": "api::employee-team.employee-team",
+      "target": "api::employee.employee",
+      "inversedBy": "team_lead"
+    },
+    "divisions": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::division.division",
+      "mappedBy": "team"
+    },
+    "employees": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::employee.employee",
       "mappedBy": "team"
     }
   }

@@ -32,10 +32,23 @@
       "relation": "oneToOne",
       "target": "api::position.position"
     },
-    "team_leader": {
-      "type": "boolean",
-      "default": false,
-      "required": true
+    "team": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::team.team",
+      "inversedBy": "employees"
+    },
+    "division": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::division.division",
+      "inversedBy": "employees"
+    },
+    "team_lead": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::team.team",
+      "inversedBy": "leader"
     }
   }
 }

@@ -24,6 +24,18 @@
       "allowedTypes": [
         "images"
       ]
+    },
+    "catalogues": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::catalogue.catalogue",
+      "mappedBy": "brand"
+    },
+    "products": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::product.product",
+      "mappedBy": "brand"
     }
   }
 }
