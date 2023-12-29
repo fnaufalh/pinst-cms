@@ -5,7 +5,7 @@ module.exports = ({ env }) => ({
     keys: env.array("APP_KEYS"),
   },
   admin: {
-    url: "/", // This should match your Netlify deployment path
+    url: "/admin", // This should match your Netlify deployment path
   },
   webhooks: {
     populateRelations: env.bool("WEBHOOKS_POPULATE_RELATIONS", false),
