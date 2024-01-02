@@ -1144,7 +1144,7 @@ export interface ApiEmployeeEmployee extends Schema.CollectionType {
       'manyToOne',
       'api::division.division'
     >;
-    team_lead: Attribute.Relation<
+    leader: Attribute.Relation<
       'api::employee.employee',
       'oneToOne',
       'api::team.team'
@@ -1507,11 +1507,6 @@ export interface ApiTeamTeam extends Schema.CollectionType {
   };
   attributes: {
     name: Attribute.String & Attribute.Required;
-    leader: Attribute.Relation<
-      'api::team.team',
-      'oneToOne',
-      'api::employee.employee'
-    >;
     divisions: Attribute.Relation<
       'api::team.team',
       'oneToMany',
@@ -1520,6 +1515,11 @@ export interface ApiTeamTeam extends Schema.CollectionType {
     employees: Attribute.Relation<
       'api::team.team',
       'oneToMany',
+      'api::employee.employee'
+    >;
+    leader: Attribute.Relation<
+      'api::team.team',
+      'oneToOne',
       'api::employee.employee'
     >;
     createdAt: Attribute.DateTime;

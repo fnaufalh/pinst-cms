@@ -16,12 +16,6 @@
       "type": "string",
       "required": true
     },
-    "leader": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::employee.employee",
-      "inversedBy": "team_lead"
-    },
     "divisions": {
       "type": "relation",
       "relation": "oneToMany",
@@ -33,6 +27,12 @@
       "relation": "oneToMany",
       "target": "api::employee.employee",
       "mappedBy": "team"
+    },
+    "leader": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::employee.employee",
+      "mappedBy": "leader"
     }
   }
 }

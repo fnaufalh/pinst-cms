@@ -44,7 +44,7 @@
       "target": "api::division.division",
       "inversedBy": "employees"
     },
-    "team_lead": {
+    "leader": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::team.team",
