@@ -10,4 +10,10 @@ module.exports = ({ env }) => ({
   webhooks: {
     populateRelations: env.bool("WEBHOOKS_POPULATE_RELATIONS", false),
   },
+  settings: {
+    cors: {
+      origin: [env.array("CORS_ORIGIN")],
+      // Add any other relevant CORS settings
+    },
+  },
 });
