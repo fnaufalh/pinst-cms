@@ -14,13 +14,14 @@
     "strapi": "strapi"
   },
   "dependencies": {
-    "@strapi/plugin-i18n": "^4.16.2",
-    "@strapi/plugin-users-permissions": "^4.16.2",
-    "@strapi/strapi": "^4.16.2",
+    "@strapi/plugin-i18n": "^4.17.1",
+    "@strapi/plugin-users-permissions": "^4.17.1",
+    "@strapi/strapi": "^4.17.1",
     "better-sqlite3": "8.6.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^5.3.4",
+    "strapi-plugin-import-export-entries": "^1.23.1",
     "strapi-plugin-netlify-deployments": "^2.0.2",
     "strapi-plugin-slugify": "^2.3.8",
     "styled-components": "^5.3.11"
