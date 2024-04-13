@@ -12,7 +12,7 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "start_date": {
+    "startDate": {
       "type": "string",
       "required": true
     },
@@ -20,7 +20,7 @@
       "type": "text",
       "required": true
     },
-    "finish_date": {
+    "endDate": {
       "type": "string",
       "required": true,
       "default": "now"

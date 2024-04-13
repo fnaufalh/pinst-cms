@@ -1,10 +1,10 @@
 {
-  "kind": "collectionType",
-  "collectionName": "services",
+  "kind": "singleType",
+  "collectionName": "exclusive_brands",
   "info": {
-    "singularName": "service",
-    "pluralName": "services",
-    "displayName": "service",
+    "singularName": "exclusive-brand",
+    "pluralName": "exclusive-brands",
+    "displayName": "Exclusive Brand",
     "description": ""
   },
   "options": {
@@ -16,13 +16,13 @@
       "type": "string",
       "required": true
     },
-    "content": {
+    "highlightText": {
       "type": "richtext",
       "required": true
     },
-    "icon": {
+    "brandImage": {
       "type": "media",
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "allowedTypes": [
         "images"

@@ -4,7 +4,8 @@
   "info": {
     "singularName": "division",
     "pluralName": "divisions",
-    "displayName": "division"
+    "displayName": "division",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -14,17 +15,17 @@
     "name": {
       "type": "string"
     },
-    "team": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::team.team",
-      "inversedBy": "divisions"
-    },
-    "employees": {
+    "employee": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::employee.employee",
       "mappedBy": "division"
+    },
+    "team": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::team.team",
+      "inversedBy": "division"
     }
   }
 }

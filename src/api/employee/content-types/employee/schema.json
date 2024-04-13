@@ -32,23 +32,23 @@
       "relation": "oneToOne",
       "target": "api::position.position"
     },
-    "team": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::team.team",
-      "inversedBy": "employees"
-    },
-    "division": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::division.division",
-      "inversedBy": "employees"
-    },
     "leader": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::team.team",
       "inversedBy": "leader"
+    },
+    "division": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::division.division",
+      "inversedBy": "employee"
+    },
+    "team": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::team.team",
+      "inversedBy": "employee"
     }
   }
 }

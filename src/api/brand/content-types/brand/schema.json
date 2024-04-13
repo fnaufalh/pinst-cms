@@ -25,16 +25,28 @@
         "images"
       ]
     },
-    "catalogues": {
+    "catalogue": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::catalogue.catalogue",
       "mappedBy": "brand"
     },
-    "products": {
+    "product": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::product.product",
+      "mappedBy": "brand"
+    },
+    "solution": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::solution.solution",
+      "mappedBy": "brand"
+    },
+    "category": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::category-product.category-product",
       "mappedBy": "brand"
     }
   }

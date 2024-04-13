@@ -23,13 +23,25 @@
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::solution.solution",
-      "inversedBy": "category_products"
+      "inversedBy": "categoryProduct"
     },
-    "products": {
+    "catalogue": {
       "type": "relation",
-      "relation": "oneToMany",
+      "relation": "manyToOne",
+      "target": "api::catalogue.catalogue",
+      "inversedBy": "category"
+    },
+    "brand": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::brand.brand",
+      "inversedBy": "category"
+    },
+    "product": {
+      "type": "relation",
+      "relation": "manyToMany",
       "target": "api::product.product",
-      "mappedBy": "category_product"
+      "mappedBy": "categoryProduct"
     }
   }
 }

@@ -20,23 +20,29 @@
       "type": "text",
       "required": false
     },
-    "catalogue": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::catalogue.catalogue",
-      "inversedBy": "solutions"
-    },
-    "category_products": {
+    "categoryProduct": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::category-product.category-product",
       "mappedBy": "solution"
     },
-    "products": {
+    "product": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::product.product",
       "mappedBy": "solution"
+    },
+    "brand": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::brand.brand",
+      "inversedBy": "solution"
+    },
+    "catalogue": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::catalogue.catalogue",
+      "inversedBy": "solution"
     }
   }
 }

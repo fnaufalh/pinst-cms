@@ -4,7 +4,7 @@
   "info": {
     "singularName": "hero",
     "pluralName": "heroes",
-    "displayName": "hero",
+    "displayName": "Hero",
     "description": ""
   },
   "options": {
@@ -32,6 +32,20 @@
       "type": "component",
       "repeatable": false,
       "component": "home.hero-carousel"
+    },
+    "partnerLabel": {
+      "type": "string",
+      "required": true,
+      "maxLength": 40,
+      "default": "Exclusive Agent for"
+    },
+    "partnerBrand": {
+      "type": "media",
+      "multiple": true,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
     }
   }
 }

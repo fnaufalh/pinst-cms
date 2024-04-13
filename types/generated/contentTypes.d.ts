@@ -403,9 +403,12 @@ export interface PluginUploadFile extends Schema.CollectionType {
     folderPath: Attribute.String &
       Attribute.Required &
       Attribute.Private &
-      Attribute.SetMinMax<{
-        min: 1;
-      }>;
+      Attribute.SetMinMax<
+        {
+          min: 1;
+        },
+        number
+      >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -441,9 +444,12 @@ export interface PluginUploadFolder extends Schema.CollectionType {
   attributes: {
     name: Attribute.String &
       Attribute.Required &
-      Attribute.SetMinMax<{
-        min: 1;
-      }>;
+      Attribute.SetMinMax<
+        {
+          min: 1;
+        },
+        number
+      >;
     pathId: Attribute.Integer & Attribute.Required & Attribute.Unique;
     parent: Attribute.Relation<
       'plugin::upload.folder',
@@ -462,9 +468,12 @@ export interface PluginUploadFolder extends Schema.CollectionType {
     >;
     path: Attribute.String &
       Attribute.Required &
-      Attribute.SetMinMax<{
-        min: 1;
-      }>;
+      Attribute.SetMinMax<
+        {
+          min: 1;
+        },
+        number
+      >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -503,6 +512,12 @@ export interface PluginContentReleasesRelease extends Schema.CollectionType {
   attributes: {
     name: Attribute.String & Attribute.Required;
     releasedAt: Attribute.DateTime;
+    scheduledAt: Attribute.DateTime;
+    timezone: Attribute.String;
+    status: Attribute.Enumeration<
+      ['ready', 'blocked', 'failed', 'done', 'empty']
+    > &
+      Attribute.Required;
     actions: Attribute.Relation<
       'plugin::content-releases.release',
       'oneToMany',
@@ -551,11 +566,13 @@ export interface PluginContentReleasesReleaseAction
       'morphToOne'
     >;
     contentType: Attribute.String & Attribute.Required;
+    locale: Attribute.String;
     release: Attribute.Relation<
       'plugin::content-releases.release-action',
       'manyToOne',
       'plugin::content-releases.release'
     >;
+    isEntryValid: Attribute.Boolean;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -634,10 +651,13 @@ export interface PluginI18NLocale extends Schema.CollectionType {
   };
   attributes: {
     name: Attribute.String &
-      Attribute.SetMinMax<{
-        min: 1;
-        max: 50;
-      }>;
+      Attribute.SetMinMax<
+        {
+          min: 1;
+          max: 50;
+        },
+        number
+      >;
     code: Attribute.String & Attribute.Unique;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -848,7 +868,7 @@ export interface ApiArticleArticle extends Schema.CollectionType {
   info: {
     singularName: 'article';
     pluralName: 'articles';
-    displayName: 'article';
+    displayName: 'news';
     description: '';
   };
   options: {
@@ -859,7 +879,7 @@ export interface ApiArticleArticle extends Schema.CollectionType {
     content: Attribute.RichText & Attribute.Required;
     thumbnail: Attribute.Media;
     summary: Attribute.Text;
-    slug: Attribute.UID<'api::article.article', 'title'>;
+    slug: Attribute.UID<'api::article.article', 'title'> & Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -892,15 +912,25 @@ export interface ApiBrandBrand extends Schema.CollectionType {
   attributes: {
     name: Attribute.String & Attribute.Required & Attribute.Unique;
     image: Attribute.Media & Attribute.Required;
-    catalogues: Attribute.Relation<
+    catalogue: Attribute.Relation<
       'api::brand.brand',
       'oneToMany',
       'api::catalogue.catalogue'
     >;
-    products: Attribute.Relation<
+    product: Attribute.Relation<
       'api::brand.brand',
       'oneToMany',
       'api::product.product'
+    >;
+    solution: Attribute.Relation<
+      'api::brand.brand',
+      'oneToMany',
+      'api::solution.solution'
+    >;
+    category: Attribute.Relation<
+      'api::brand.brand',
+      'oneToMany',
+      'api::category-product.category-product'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -933,20 +963,25 @@ export interface ApiCatalogueCatalogue extends Schema.CollectionType {
   };
   attributes: {
     name: Attribute.String & Attribute.Required & Attribute.Unique;
-    brand: Attribute.Relation<
-      'api::catalogue.catalogue',
-      'manyToOne',
-      'api::brand.brand'
-    >;
-    solutions: Attribute.Relation<
+    solution: Attribute.Relation<
       'api::catalogue.catalogue',
       'oneToMany',
       'api::solution.solution'
     >;
-    products: Attribute.Relation<
+    product: Attribute.Relation<
       'api::catalogue.catalogue',
       'oneToMany',
       'api::product.product'
+    >;
+    category: Attribute.Relation<
+      'api::catalogue.catalogue',
+      'oneToMany',
+      'api::category-product.category-product'
+    >;
+    brand: Attribute.Relation<
+      'api::catalogue.catalogue',
+      'manyToOne',
+      'api::brand.brand'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -986,9 +1021,19 @@ export interface ApiCategoryProductCategoryProduct
       'manyToOne',
       'api::solution.solution'
     >;
-    products: Attribute.Relation<
+    catalogue: Attribute.Relation<
       'api::category-product.category-product',
-      'oneToMany',
+      'manyToOne',
+      'api::catalogue.catalogue'
+    >;
+    brand: Attribute.Relation<
+      'api::category-product.category-product',
+      'manyToOne',
+      'api::brand.brand'
+    >;
+    product: Attribute.Relation<
+      'api::category-product.category-product',
+      'manyToMany',
       'api::product.product'
     >;
     createdAt: Attribute.DateTime;
@@ -1046,7 +1091,7 @@ export interface ApiCompanyCompany extends Schema.SingleType {
   info: {
     singularName: 'company';
     pluralName: 'companies';
-    displayName: 'company';
+    displayName: 'Company';
     description: '';
   };
   options: {
@@ -1080,21 +1125,22 @@ export interface ApiDivisionDivision extends Schema.CollectionType {
     singularName: 'division';
     pluralName: 'divisions';
     displayName: 'division';
+    description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
     name: Attribute.String;
+    employee: Attribute.Relation<
+      'api::division.division',
+      'oneToMany',
+      'api::employee.employee'
+    >;
     team: Attribute.Relation<
       'api::division.division',
       'manyToOne',
       'api::team.team'
-    >;
-    employees: Attribute.Relation<
-      'api::division.division',
-      'oneToMany',
-      'api::employee.employee'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -1134,9 +1180,9 @@ export interface ApiEmployeeEmployee extends Schema.CollectionType {
       'oneToOne',
       'api::position.position'
     >;
-    team: Attribute.Relation<
+    leader: Attribute.Relation<
       'api::employee.employee',
-      'manyToOne',
+      'oneToOne',
       'api::team.team'
     >;
     division: Attribute.Relation<
@@ -1144,9 +1190,9 @@ export interface ApiEmployeeEmployee extends Schema.CollectionType {
       'manyToOne',
       'api::division.division'
     >;
-    leader: Attribute.Relation<
+    team: Attribute.Relation<
       'api::employee.employee',
-      'oneToOne',
+      'manyToOne',
       'api::team.team'
     >;
     createdAt: Attribute.DateTime;
@@ -1167,34 +1213,32 @@ export interface ApiEmployeeEmployee extends Schema.CollectionType {
   };
 }
 
-export interface ApiEmployeeTeamEmployeeTeam extends Schema.CollectionType {
-  collectionName: 'employee_teams';
+export interface ApiExclusiveBrandExclusiveBrand extends Schema.SingleType {
+  collectionName: 'exclusive_brands';
   info: {
-    singularName: 'employee-team';
-    pluralName: 'employee-teams';
-    displayName: 'employee team';
+    singularName: 'exclusive-brand';
+    pluralName: 'exclusive-brands';
+    displayName: 'Exclusive Brand';
     description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    employees: Attribute.Relation<
-      'api::employee-team.employee-team',
-      'oneToMany',
-      'api::employee.employee'
-    >;
+    title: Attribute.String & Attribute.Required;
+    highlightText: Attribute.RichText & Attribute.Required;
+    brandImage: Attribute.Media & Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
-      'api::employee-team.employee-team',
+      'api::exclusive-brand.exclusive-brand',
       'oneToOne',
       'admin::user'
     > &
       Attribute.Private;
     updatedBy: Attribute.Relation<
-      'api::employee-team.employee-team',
+      'api::exclusive-brand.exclusive-brand',
       'oneToOne',
       'admin::user'
     > &
@@ -1207,7 +1251,7 @@ export interface ApiHeroHero extends Schema.SingleType {
   info: {
     singularName: 'hero';
     pluralName: 'heroes';
-    displayName: 'hero';
+    displayName: 'Hero';
     description: '';
   };
   options: {
@@ -1220,6 +1264,13 @@ export interface ApiHeroHero extends Schema.SingleType {
       Attribute.DefaultTo<'PT. Putera Instrumenindo'>;
     slogan: Attribute.String;
     carousel: Attribute.Component<'home.hero-carousel'>;
+    partnerLabel: Attribute.String &
+      Attribute.Required &
+      Attribute.SetMinMaxLength<{
+        maxLength: 40;
+      }> &
+      Attribute.DefaultTo<'Exclusive Agent for'>;
+    partnerBrand: Attribute.Media & Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1243,11 +1294,9 @@ export interface ApiMaintenanceProjectMaintenanceProject
     draftAndPublish: true;
   };
   attributes: {
-    start_date: Attribute.String & Attribute.Required;
+    startDate: Attribute.String & Attribute.Required;
     content: Attribute.Text & Attribute.Required;
-    finish_date: Attribute.String &
-      Attribute.Required &
-      Attribute.DefaultTo<'now'>;
+    endDate: Attribute.String & Attribute.Required & Attribute.DefaultTo<'now'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1343,11 +1392,12 @@ export interface ApiProductProduct extends Schema.CollectionType {
   attributes: {
     name: Attribute.String & Attribute.Required & Attribute.Unique;
     image: Attribute.Media & Attribute.Required;
-    source_link: Attribute.String;
-    category_product: Attribute.Relation<
+    sourceLink: Attribute.String;
+    description: Attribute.RichText;
+    solution: Attribute.Relation<
       'api::product.product',
       'manyToOne',
-      'api::category-product.category-product'
+      'api::solution.solution'
     >;
     brand: Attribute.Relation<
       'api::product.product',
@@ -1359,12 +1409,11 @@ export interface ApiProductProduct extends Schema.CollectionType {
       'manyToOne',
       'api::catalogue.catalogue'
     >;
-    solution: Attribute.Relation<
+    categoryProduct: Attribute.Relation<
       'api::product.product',
-      'manyToOne',
-      'api::solution.solution'
+      'manyToMany',
+      'api::category-product.category-product'
     >;
-    description: Attribute.RichText;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1429,6 +1478,7 @@ export interface ApiServiceService extends Schema.CollectionType {
   attributes: {
     title: Attribute.String & Attribute.Required;
     content: Attribute.RichText & Attribute.Required;
+    icon: Attribute.Media & Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1461,20 +1511,25 @@ export interface ApiSolutionSolution extends Schema.CollectionType {
   attributes: {
     name: Attribute.String & Attribute.Required;
     description: Attribute.Text;
-    catalogue: Attribute.Relation<
-      'api::solution.solution',
-      'manyToOne',
-      'api::catalogue.catalogue'
-    >;
-    category_products: Attribute.Relation<
+    categoryProduct: Attribute.Relation<
       'api::solution.solution',
       'oneToMany',
       'api::category-product.category-product'
     >;
-    products: Attribute.Relation<
+    product: Attribute.Relation<
       'api::solution.solution',
       'oneToMany',
       'api::product.product'
+    >;
+    brand: Attribute.Relation<
+      'api::solution.solution',
+      'manyToOne',
+      'api::brand.brand'
+    >;
+    catalogue: Attribute.Relation<
+      'api::solution.solution',
+      'manyToOne',
+      'api::catalogue.catalogue'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -1507,12 +1562,12 @@ export interface ApiTeamTeam extends Schema.CollectionType {
   };
   attributes: {
     name: Attribute.String & Attribute.Required;
-    divisions: Attribute.Relation<
+    division: Attribute.Relation<
       'api::team.team',
       'oneToMany',
       'api::division.division'
     >;
-    employees: Attribute.Relation<
+    employee: Attribute.Relation<
       'api::team.team',
       'oneToMany',
       'api::employee.employee'
@@ -1560,7 +1615,7 @@ declare module '@strapi/types' {
       'api::company.company': ApiCompanyCompany;
       'api::division.division': ApiDivisionDivision;
       'api::employee.employee': ApiEmployeeEmployee;
-      'api::employee-team.employee-team': ApiEmployeeTeamEmployeeTeam;
+      'api::exclusive-brand.exclusive-brand': ApiExclusiveBrandExclusiveBrand;
       'api::hero.hero': ApiHeroHero;
       'api::maintenance-project.maintenance-project': ApiMaintenanceProjectMaintenanceProject;
       'api::other-product.other-product': ApiOtherProductOtherProduct;

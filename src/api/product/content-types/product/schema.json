@@ -25,35 +25,35 @@
         "images"
       ]
     },
-    "source_link": {
+    "sourceLink": {
       "type": "string"
     },
-    "category_product": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::category-product.category-product",
-      "inversedBy": "products"
-    },
-    "brand": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::brand.brand",
-      "inversedBy": "products"
-    },
-    "catalogue": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::catalogue.catalogue",
-      "inversedBy": "products"
+    "description": {
+      "type": "richtext"
     },
     "solution": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::solution.solution",
-      "inversedBy": "products"
+      "inversedBy": "product"
     },
-    "description": {
-      "type": "richtext"
+    "brand": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::brand.brand",
+      "inversedBy": "product"
+    },
+    "catalogue": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::catalogue.catalogue",
+      "inversedBy": "product"
+    },
+    "categoryProduct": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::category-product.category-product",
+      "inversedBy": "product"
     }
   }
 }

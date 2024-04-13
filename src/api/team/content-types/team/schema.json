@@ -16,13 +16,13 @@
       "type": "string",
       "required": true
     },
-    "divisions": {
+    "division": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::division.division",
       "mappedBy": "team"
     },
-    "employees": {
+    "employee": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::employee.employee",
