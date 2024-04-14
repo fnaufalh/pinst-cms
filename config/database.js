@@ -79,6 +79,7 @@ module.exports = ({ env }) => {
         ),
       },
       useNullAsDefault: true,
+      debug: env.bool('DATABASE_DEBUG', false), // Optional: Enable to debug SQL queries
     },
   };
 
