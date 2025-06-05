@@ -82,6 +82,8 @@ ssl
 nbproject
 public/uploads/*
 !public/uploads/.gitkeep
+public/uploads_backup*/
+*.tar.gz.enc
 
 ############################
 # Node.js
