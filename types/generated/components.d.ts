@@ -1,75 +1,75 @@
-import type { Schema, Attribute } from '@strapi/strapi';
+import type { Schema, Struct } from '@strapi/strapi';
 
-export interface GlobalFooter extends Schema.Component {
+export interface GlobalFooter extends Struct.ComponentSchema {
   collectionName: 'components_footer_footers';
   info: {
+    description: '';
     displayName: 'Footer';
     icon: 'code';
-    description: '';
   };
   attributes: {
-    title: Attribute.String & Attribute.Required;
-    address: Attribute.Text & Attribute.Required;
-    website_url: Attribute.String & Attribute.Required;
-    email: Attribute.String & Attribute.Required;
-    phone: Attribute.Text & Attribute.Required;
+    address: Schema.Attribute.Text & Schema.Attribute.Required;
+    email: Schema.Attribute.String & Schema.Attribute.Required;
+    phone: Schema.Attribute.Text & Schema.Attribute.Required;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+    website_url: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
 
-export interface GlobalNavLinkGroup extends Schema.Component {
+export interface GlobalNavLink extends Struct.ComponentSchema {
+  collectionName: 'components_global_nav_links';
+  info: {
+    description: '';
+    displayName: 'NavLink';
+    icon: 'code';
+  };
+  attributes: {
+    slug: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique &
+      Schema.Attribute.DefaultTo<'home'>;
+  };
+}
+
+export interface GlobalNavLinkGroup extends Struct.ComponentSchema {
   collectionName: 'components_global_nav_link_groups';
   info: {
     displayName: 'NavLinkGroup';
     icon: 'code';
   };
   attributes: {
-    NavLink: Attribute.Component<'global.nav-link', true>;
+    NavLink: Schema.Attribute.Component<'global.nav-link', true>;
   };
 }
 
-export interface GlobalNavLink extends Schema.Component {
-  collectionName: 'components_global_nav_links';
-  info: {
-    displayName: 'NavLink';
-    icon: 'code';
-    description: '';
-  };
-  attributes: {
-    slug: Attribute.String &
-      Attribute.Required &
-      Attribute.Unique &
-      Attribute.DefaultTo<'home'>;
-  };
-}
-
-export interface GlobalNavbar extends Schema.Component {
+export interface GlobalNavbar extends Struct.ComponentSchema {
   collectionName: 'components_global_navbars';
   info: {
     displayName: 'Navbar';
     icon: 'code';
   };
   attributes: {
-    NavLink: Attribute.Component<'global.nav-link', true>;
+    NavLink: Schema.Attribute.Component<'global.nav-link', true>;
   };
 }
 
-export interface HomeHeroCarousel extends Schema.Component {
+export interface HomeHeroCarousel extends Struct.ComponentSchema {
   collectionName: 'components_home_hero_carousels';
   info: {
     displayName: 'Hero Carousel';
     icon: 'picture';
   };
   attributes: {
-    image: Attribute.Media & Attribute.Required;
+    image: Schema.Attribute.Media<'images', true> & Schema.Attribute.Required;
   };
 }
 
-declare module '@strapi/types' {
-  export module Shared {
-    export interface Components {
+declare module '@strapi/strapi' {
+  export module Public {
+    export interface ComponentSchemas {
       'global.footer': GlobalFooter;
-      'global.nav-link-group': GlobalNavLinkGroup;
       'global.nav-link': GlobalNavLink;
+      'global.nav-link-group': GlobalNavLinkGroup;
       'global.navbar': GlobalNavbar;
       'home.hero-carousel': HomeHeroCarousel;
     }
